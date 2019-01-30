@@ -5,10 +5,10 @@ it("works", () => {
       input: {
         a: {
           b: {
-            c: "z"
+            c: "z",
+            d: "y"
           }
-        },
-        "a.b.d": "y"
+        }
       },
       output: {
         a: {
