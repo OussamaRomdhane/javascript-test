@@ -1,10 +1,7 @@
 module.exports = function resolveObjects(obj) {
   let objCopy = { ...obj };
   for (let key of Object.keys(objCopy)) {
-    // Recursively resolve properties of type object
-    if (typeof objCopy[key] === "object" && !Array.isArray(objCopy[key])) {
-      resolveObjects(objCopy[key]);
-    } else if (key.includes(".")) {
+    if (key.includes(".")) {
       let queue = key.split(".");
       let value = objCopy[key];
       let currentObj = objCopy;
@@ -18,6 +15,10 @@ module.exports = function resolveObjects(obj) {
       }
       // Clean up
       delete objCopy[key];
+    }
+    // Recursively resolve properties of type object
+    if (typeof objCopy[key] === "object" && !Array.isArray(objCopy[key])) {
+      objCopy[key] = resolveObjects(objCopy[key]);
     }
   }
   return objCopy;
